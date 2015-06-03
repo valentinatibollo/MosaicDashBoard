@@ -879,7 +879,7 @@ function drawProcessChart(data){
 			});
 		}
 	}
-	//il file in ingresso è ancora da modificare con gli attributi label e steps corretti
+	//il file in ingresso ï¿½ ancora da modificare con gli attributi label e steps corretti
 	var obj = jQuery.parseJSON(data);
 	processJSON = obj;
 	$(".step_two_two").append('<div class="chart_step_two_container" id="div_container_'+obj.data_category+'"><div>'+obj.data_category+' CHART</div><div class="chart_step_two" id="div_process_'+obj.data_category+'"></div></div>');
@@ -3097,80 +3097,86 @@ function addTrend(parentObj, cat_diff){
 function testJSONP(){
 	//get the form data and then serialize that
 	var patientIdVar = $("#patientTxt").val();
-
-	//make the AJAX request, dataType is set to json
-	//meaning we are expecting JSON data in response from the server
+	//make the ajax request to get url from properties
 	$.ajax({
-		type: "POST",
-		// url: 'http://www.cosenonjaviste.it/api/get_recent_posts?callback=?',
-		url: "http://10.7.59.81:8080/MosaicMiner/chartServlet/?patientName="+patientIdVar+"&callback=?", 
-		dataType: 'jsonp',
-		jsonp: 'callback',    
-		//  jsonpCallback: 'jsonpCallback',
-
-		//if received a response from the server
-		success: function( data) {
-			if(data.patients.length==0){
-				alert("No patient found");
-				patientIdSelected = null;
-				patientCompleteNameSelected = null;
-				$("#singlePatientDataContainer").hide();
-			}else if (data.patients.length==1){
-				$("#singlePatientDataContainer").load("trafficlights.html"); 
-				$("#singlePatientDataContainer").show();
-				patientIdSelected = data.patients[0].patientId;
-				patientCompleteNameSelected = data.patients[0].patientName+" "+data.patients[0].patientSurname;
-				designTrafficLights();
-			}else{
-				$("#singlePatientDataContainer").html("");
-				$("#singlePatientDataContainer").show();
-				if($("#tablePatientdialog").length==0){
-					var dialogHTML = "<div id='tablePatientdialog' title='Choose a patient'>";
-					var tablePatient = dialogHTML.concat("<table class='dialog_table' border='none'><tr><th>Surname</th><th>Name</th><th>Birth Date</th><th>Select</th></tr>");		
-					for (var i = 0; i < data.patients.length; i++) {
-						var singlePatient = data.patients[i];
-						var patientSelectedInfo = singlePatient.patientId+"@"+singlePatient.patientName+" "+singlePatient.patientSurname;
-						tablePatient = tablePatient.concat("<tr><td>"+singlePatient.patientSurname+"</td><td>"+singlePatient.patientName+"</td><td>"+singlePatient.patientDOB+"</td>" +
-								"<td><input id='selectTP' type='button' onclick='selectTablePatient(this);' value='select' name='"+patientSelectedInfo+"'/></td></tr>");
-					}
-					tablePatient = tablePatient.concat("</table></div>"); 
-					$("#singlePatientDataContainer").append(tablePatient);
-					$("#tablePatientdialog").dialog({
-						autoOpen: true,
-						height: 600,
-						width: 500,
-						modal: true,
-						resizable: true,
-						closeOnEscape: false,
-						// beforeClose: function (event, ui) { return false; },
-						dialogClass: "noclose"
-//							buttons: {
-//							OK: function() { $(this).dialog('close'); }
-//							}
-					});
-				}else{
-					$("#tablePatientdialog").html('');
-					var tablePatient = "<table class='dialog_table' border='none'><tr><th>Surname</th><th>Name</th><th>Birth Date</th><th>Select</th></tr>";		
-					for (var i = 0; i < data.patients.length; i++) {
-						var singlePatient = data.patients[i];
-						var patientSelectedInfo = singlePatient.patientId+"@"+singlePatient.patientName+" "+singlePatient.patientSurname;
-						tablePatient = tablePatient.concat("<tr><td>"+singlePatient.patientSurname+"</td><td>"+singlePatient.patientName+"</td><td>"+singlePatient.patientDOB+"</td>" +
-								"<td><input id='selectTP' type='button' onclick='selectTablePatient(this);' value='select' name='"+patientSelectedInfo+"'/></td></tr>");
-					}
-					tablePatient = tablePatient.concat("</table>"); 
-					$("#tablePatientdialog").append(tablePatient);
-					$("#tablePatientdialog").dialog('open');
-				}
-			}
+		url: "./i2b2Servlet/",
+		dataType:"text",
+		async: true,
+		data: { step: "4",
+			chart_type: "getUrl"
 		},
-		error: function(){
-			alert("Error. Please try another patient or contact the administrators");
-		},
+		complete: function(results){
+			//make the AJAX request, dataType is set to json
+			//meaning we are expecting JSON data in response from the server
+				$.ajax({
+					type: "POST",
+					url: results.responseText+"?patientName="+patientIdVar+"&callback=?", 
+					dataType: 'jsonp',
+					jsonp: 'callback',    
+					//  jsonpCallback: 'jsonpCallback',
 
-	});    
-
-
-
+					//if received a response from the server
+					success: function( data) {
+						if(data.patients.length==0){
+							alert("No patient found");
+							patientIdSelected = null;
+							patientCompleteNameSelected = null;
+							$("#singlePatientDataContainer").hide();
+						}else if (data.patients.length==1){
+							$("#singlePatientDataContainer").load("trafficlights.html"); 
+							$("#singlePatientDataContainer").show();
+							patientIdSelected = data.patients[0].patientId;
+							patientCompleteNameSelected = data.patients[0].patientName+" "+data.patients[0].patientSurname;
+							designTrafficLights();
+						}else{
+							$("#singlePatientDataContainer").html("");
+							$("#singlePatientDataContainer").show();
+							if($("#tablePatientdialog").length==0){
+								var dialogHTML = "<div id='tablePatientdialog' title='Choose a patient'>";
+								var tablePatient = dialogHTML.concat("<table class='dialog_table' border='none'><tr><th>Surname</th><th>Name</th><th>Birth Date</th><th>Select</th></tr>");		
+								for (var i = 0; i < data.patients.length; i++) {
+									var singlePatient = data.patients[i];
+									var patientSelectedInfo = singlePatient.patientId+"@"+singlePatient.patientName+" "+singlePatient.patientSurname;
+									tablePatient = tablePatient.concat("<tr><td>"+singlePatient.patientSurname+"</td><td>"+singlePatient.patientName+"</td><td>"+singlePatient.patientDOB+"</td>" +
+											"<td><input id='selectTP' type='button' onclick='selectTablePatient(this);' value='select' name='"+patientSelectedInfo+"'/></td></tr>");
+								}
+								tablePatient = tablePatient.concat("</table></div>"); 
+								$("#singlePatientDataContainer").append(tablePatient);
+								$("#tablePatientdialog").dialog({
+									autoOpen: true,
+									height: 600,
+									width: 500,
+									modal: true,
+									resizable: true,
+									closeOnEscape: false,
+									// beforeClose: function (event, ui) { return false; },
+									dialogClass: "noclose"
+//										buttons: {
+//										OK: function() { $(this).dialog('close'); }
+//										}
+								});
+							}else{
+								$("#tablePatientdialog").html('');
+								var tablePatient = "<table class='dialog_table' border='none'><tr><th>Surname</th><th>Name</th><th>Birth Date</th><th>Select</th></tr>";		
+								for (var i = 0; i < data.patients.length; i++) {
+									var singlePatient = data.patients[i];
+									var patientSelectedInfo = singlePatient.patientId+"@"+singlePatient.patientName+" "+singlePatient.patientSurname;
+									tablePatient = tablePatient.concat("<tr><td>"+singlePatient.patientSurname+"</td><td>"+singlePatient.patientName+"</td><td>"+singlePatient.patientDOB+"</td>" +
+											"<td><input id='selectTP' type='button' onclick='selectTablePatient(this);' value='select' name='"+patientSelectedInfo+"'/></td></tr>");
+								}
+								tablePatient = tablePatient.concat("</table>"); 
+								$("#tablePatientdialog").append(tablePatient);
+								$("#tablePatientdialog").dialog('open');
+							}
+						}
+					},
+					error: function(){
+						alert("Error. Please try another patient or contact the administrators");
+					},
+				}); 
+		
+		}
+	});
 //	function jsonpCallback(data) {
 //	console.log("callback",data);
 ////	do nothing   
