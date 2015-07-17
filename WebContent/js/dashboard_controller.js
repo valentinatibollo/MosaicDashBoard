@@ -1329,7 +1329,6 @@ function drawProcessChart(data){
 					var dataChart = complicationDataPost.complicationChart[i];
 					if(dataChart.cols.length>4 || (dataChart.cols.length==4 && dataChart.rows.length>1)){
 						if(first2display){
-							//TODO
 							myHtml = myHtml.concat("<td><div  class='hSelected historyItem' onclick='handleClickH($(\"#"+historyName+"_"+i+"\"));'  id='"+historyName+"_"+i+"' >"
 									+historyName+"</div></td>");
 							historySelected = i;
@@ -3081,8 +3080,6 @@ function openUC3Chart(callerId){
 }
 
 function addTrend(parentObj, cat_diff){
-	// random number between 1 and 10
-	//var random = Math.floor((Math.random() * 10) + 1); 
 	if(cat_diff < 0){
 		$('.tl_category', parentObj).append("<img src='images/decreasing_state.png' width='70' style='margin-left: 25px; margin-bottom: 10px;'/>");
 	}
@@ -3180,7 +3177,6 @@ function testJSONP(){
 }
 
 function selectTablePatient(form){
-	
 	$("#singlePatientDataContainer").load("trafficlights.html"); 
 	$("#singlePatientDataContainer").show();
 	patientIdSelected = $("#patientTxt").val();
@@ -3188,13 +3184,5 @@ function selectTablePatient(form){
 	patientCompleteNameSelected = "PATIENT NAME";
 	designTrafficLights();
 	$("#tablePatientdialog").dialog('close');
-	
-//	$("#singlePatientDataContainer").load("trafficlights.html"); 
-//	$("#singlePatientDataContainer").show();
-//	var patInfos = form.name.split("@");
-//	patientIdSelected = patInfos[0];
-//	patientCompleteNameSelected = patInfos[1];
-//	designTrafficLights();
-//	$("#tablePatientdialog").dialog('close');
-	//$("#tablePatientdialog").dialog('destroy').remove();
+
 }
