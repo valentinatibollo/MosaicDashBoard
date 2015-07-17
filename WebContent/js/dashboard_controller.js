@@ -2526,6 +2526,8 @@ function createComplicationsChart(){
 			chart_type: "complication",
 			patient_id: patientIdSelected
 		},
+		
+	
 
 		complete: function(results){
 			var scatterChartData = new google.visualization.DataTable(results.responseText);
