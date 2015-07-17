@@ -2547,22 +2547,6 @@ function createComplicationsChart(){
 						tooltip: { textStyle: { fontName: 'MyriadPro', fontSize: 14 } },
 						legend: {position: 'none'},
 						annotations: {
-//							boxStyle: {
-//							stroke: '#888',           // Color of the box outline.
-//							strokeWidth: 1,           // Thickness of the box outline.
-//							rx: 0,                   // x-radius of the corner curvature.
-//							ry: 0,                   // y-radius of the corner curvature.
-////							gradient: {               // Attributes for linear gradient fill.
-////							color1: '#fbf6a7',      // Start color for gradient.
-////							color2: '#33b679',      // Finish color for gradient.
-////							x1: '0%', y1: '0%',     // Where on the boundary to start and end the
-////							x2: '100%', y2: '100%', // color1/color2 gradient, relative to the
-////							// upper left corner of the boundary.
-////							useObjectBoundingBoxUnits: true // If true, the boundary for x1, y1,
-////							// x2, and y2 is the box. If false,
-////							// it's the entire chart.
-////							}
-//							},
 							textStyle: {
 								fontName: 'MyriadPro',
 								fontSize: 14,
@@ -2618,22 +2602,6 @@ function createComplicationsChart2(){
 					legend: {position: 'bottom'},
 					annotations: {
 						position: 'right',
-//						boxStyle: {
-//						stroke: '#888',           // Color of the box outline.
-//						strokeWidth: 1,           // Thickness of the box outline.
-//						rx: 0,                   // x-radius of the corner curvature.
-//						ry: 0,                   // y-radius of the corner curvature.
-////						gradient: {               // Attributes for linear gradient fill.
-////						color1: '#fbf6a7',      // Start color for gradient.
-////						color2: '#33b679',      // Finish color for gradient.
-////						x1: '0%', y1: '0%',     // Where on the boundary to start and end the
-////						x2: '100%', y2: '100%', // color1/color2 gradient, relative to the
-////						// upper left corner of the boundary.
-////						useObjectBoundingBoxUnits: true // If true, the boundary for x1, y1,
-////						// x2, and y2 is the box. If false,
-////						// it's the entire chart.
-////						}
-//						},
 						textStyle: {
 							fontName: 'MyriadPro',
 							fontSize: 12,
@@ -2641,10 +2609,7 @@ function createComplicationsChart2(){
 							italic: false,
 							color: '#015e84',     // The color of the text.
 						}
-
 					},
-
-
 					seriesType: "line",
 					series: {
 						0: {type: "line", isStacked: true, pointSize: 5,lineWidth:0, color:"#90C8D1", visibleInLegend: true },
